@@ -1,3 +1,1 @@
-<?php
 servicedocs_test
-?>

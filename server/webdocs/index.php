@@ -1,3 +1,1 @@
-<?php
 webdocs_test
-?>
