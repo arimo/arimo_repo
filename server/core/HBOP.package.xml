@@ -1,0 +1,60 @@
+<?xml version="1.0" ?>
+<xml>
+	<default>
+		<!-- 自動走査パスの設定 -->
+		<!-- あまり多くの定義するとフレームワークの速度が低下するので注意して下さい！ -->
+		<link suffix=".php">lib/Packages/PrivatePackage/function</link>
+		<link suffix=".php">lib/Packages/GenericPackage/function</link>
+		<link suffix=".php">lib/OtherOpenSources</link>
+		<link suffix=".php">lib/OtherOpenSources/PEAR</link>
+		<implement suffix=".class.php">lib/Packages/PrivatePackage/class/implement</implement>
+		<implement suffix=".class.php">lib/Packages/GenericPackage/class/implement</implement>
+		<abstract suffix=".abstract.php">lib/Packages/PrivatePackage/class/abstract</abstract>
+		<abstract suffix=".abstract.php">lib/Packages/GenericPackage/class/abstract</abstract>
+		<interface suffix=".interface.php">lib/Packages/PrivatePackage/class/interface</interface>
+		<interface suffix=".interface.php">lib/Packages/GenericPackage/class/interface</interface>
+		<!-- フレームワークの初期化時に必ず自動で読み込ませるファイルは以下に定義します。 -->
+		<auto>
+			<mobule>default.functions.inc.php</mobule>
+		</auto>
+	</default>
+	<!-- classマッピング定義ココから -->
+	<!-- 上記のdefault節で定義されてるパス配下で、且つ依存関係の無い単独動作のファイルは以下の個別定義追加は不要です -->
+	<Core>
+		<link mapfrom="GenericMVCCore" mapto="Core">default.implement.MVC/GenericCore</link>
+	</Core>
+	<Utilities>
+		<link mapfrom="Cipher" mapto="Crypt">default.implement.Cipher/Cipher</link>
+		<link>default.implement.Utilities/Utilities</link>
+	</Utilities>
+	<Validations>
+		<link>default.implement.Utilities/Validations</link>
+	</Validations>
+	<DBO>
+		<link>default.adodb5/adodb.inc.php</link>
+		<link mapfrom="GenericDBO" mapto="DBO">default.implement.DB/GenericDBO</link>
+	</DBO>
+	<ORMapper>
+		<link>default.implement.ORM/GenericModelBase</link>
+		<link mapfrom="GenericORMapper" mapto="ORMapper">default.implement.ORM/GenericORMapper</link>
+	</ORMapper>
+	<Memcached>
+		<link mapfrom="MemcacheWrapper" mapto="Memcached">default.implement.KVS/MemcacheWrapper.class.php</link>
+	</Memcached>
+	<Crypt>
+		<link mapfrom="Cipher" mapto="Crypt">default.implement.Cipher/Cipher</link>
+	</Crypt>
+	<!-- classマッピング定義ココまで -->
+	<!-- 自動解決出来ないclassファイルの定義ココから -->
+	<HtmlTemplate>
+		<link addmethod="simple_html_dom_node_get_dom" renamefrom="simple_html_dom, simple_html_dom_node" renameto="simple_html_dom_org, simple_html_dom_node_org">simple_html_dom.php</link>
+		<link>default.implement.TemplateEngine/simple_html_dom_wrapper.php</link>
+		<link mapfrom="PQuery" mapto="HtmlTemplate">default.implement.TemplateEngine/PQuery.class.php</link>
+		<simple_html_dom_node_get_dom targetclass="simple_html_dom_node"><![CDATA[function & getDOM(){ return $this->dom; }]]></simple_html_dom_node_get_dom>
+	</HtmlTemplate>
+	<Image>
+		<pattern><![CDATA[^Image[a-zA-Z]*(Info|Util)]]></pattern>
+		<link>default.implement.Image/Image</link>
+	</Image>
+	<!-- 自動解決出来ないclassファイルの定義ココまで -->
+</xml>

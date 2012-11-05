@@ -1,0 +1,3 @@
+<?php
+appdocs_test
+?>

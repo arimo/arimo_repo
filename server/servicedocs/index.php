@@ -1,0 +1,3 @@
+<?php
+servicedocs_test
+?>
